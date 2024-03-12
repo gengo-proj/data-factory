@@ -1,0 +1,79 @@
+{
+	"title": "EnrichedPaper",
+	"type": "object",
+	"properties": {
+		"paper_uuid": { "type": "string" },
+		"collection_id": { "type": "string" },
+		"collection_acronym": { "type": "string" },
+		"volume_id": { "type": "string" },
+		"booktitle": { "type": "string" },
+		"paper_id": { "type": "integer" },
+		"year": { "type": ["integer", "null"] },
+		"paper_title": { "type": "string" },
+		"authors": { "type": "array", "items": {
+				"type": "object",
+				"items": { "first": { "type": "string" }, "last": { "type": "string" } }
+			}
+		},
+		"abstract": { "type": ["string", "null"] },
+		"url": { "type": "string" },
+		"bibkey": { "type": ["string", "null"] },
+		"doi": { "type": ["string", "null"] },
+		"fulltext": {
+			"type": ["object", "null"],
+			"patternProperties": {
+				"^.*$": { "type": "array", "items": { "type": "string" } }
+			}
+		},
+		"named_entities": {
+			"type": "object",
+			"properties": {
+				"datasets": { "type": "array", "items": { "type": "string" } },
+				"metrics": { "type": "array", "items": { "type": "string" } },
+				"tasks": { "type": "array", "items": { "type": "string" } },
+				"methods": { "type": "array", "items": { "type": "string" } }
+			}
+		},
+		"summaries": {
+			"type": "object",
+			"properties": {
+				"overview": { "type": ["string", "null"] },
+				"challenge": { "type": ["string", "null"] },
+				"approach": { "type": ["string", "null"] },
+				"outcome": { "type": ["string", "null"] }
+			}
+		},
+		"field_of_studies": {
+			"type": ["array", "null"],
+			"items": { "type": "object", "properties": {
+				"label": { "type": "string" },
+				"score": { "type": "number" }
+			}}
+		},
+		"vectors": {
+			"type": "object",
+			"properties": {
+				"overview": { "type": ["array"], "items": { "type": "number" }},
+				"challenge": { "type": ["array"], "items": { "type": "number" }},
+				"approach": { "type": ["array"], "items": { "type": "number" }},
+				"outcome": { "type": ["array"], "items": { "type": "number" }}
+			}
+		},
+		"relevant_papers": {
+			"type": "object",
+			"properties": {
+				"overview": { "type": ["array", "null"], "items": { "type": "string" }},
+				"challenge": { "type": ["array", "null"], "items": { "type": "string" }},
+				"approach": { "type": ["array", "null"], "items": { "type": "string" }},
+				"outcome": { "type": ["array", "null"], "items": { "type": "string" }}
+			}
+		},
+		"custom_results": {
+			"type": ["array", "null"],
+			"items": { "type": "object", "properties": {
+				"result_name": { "type": "string" },
+				"result_value": { "type": "string" }
+			}}
+		}
+	}
+}

@@ -1,0 +1,26 @@
+{
+	"title": "Volume",
+	"type": "object",
+	"properties": {
+		"volume_id": { "type": "string" },
+		"booktitle": { "type": "string" },
+		"editors": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": { "first": { "type": "string" }, "last": { "type": "string" } }
+			}
+		},
+		"publisher": { "type": "string" },
+		"address": { "type": "string" },
+		"month": { "type": ["integer", "null"] },
+		"year": { "type": "integer" },
+		"url": { "type": ["string", "null"] },
+		"venue": { "type": "string" },
+		"frontmatter": {
+			"type": ["object", "null"],
+			"properties": { "url": { "type": "string" }, "bibkey": { "type": "string" } }
+		},
+		"paper_ids": { "type": "array", "items": { "type": "string" } }
+	}
+}

@@ -1,0 +1,17 @@
+{
+	"title": "Collection",
+	"type": "object",
+	"properties": {
+		"collectionId": { "type": "string" },
+		"collection_name": { "type": "string" },
+		"year": { "type": "integer" },
+		"collection_long_name": { "type": "string" },
+		"is_acl": { "type": ["bool", "null"] },
+		"is_toplevel": { "type": ["bool", "null"] },
+		"acronym": { "type": "string" },
+		"oldstyle_letter": { "type": ["string", "null"] },
+		"eventId": { "type": "string" },
+		"volumeIds": { "type": ["array", "null"], "items": { "type": "string" }},
+		"colocatedVolumeIds": { "type": ["array", "null"], "items": { "type": "string" } }
+	}
+}

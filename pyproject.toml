@@ -1,0 +1,97 @@
+[project]
+name = "data-factory"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "sobamchan", email = "oh.sore.sore.soutarou@gmail.com"},
+]
+dependencies = [
+    "jsonschema>=4.20.0",
+    "beautifulsoup4>=4.12.2",
+    "sienna>=0.2.4",
+    "spacy>=3.7.2",
+    "en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.0/en_core_web_sm-3.7.0-py3-none-any.whl",
+    "requests>=2.31.0",
+    "lxml==4.9.2",
+    "transformers>=4.36.2",
+    "torch>=2.1.2",
+    "sentence-transformers>=2.2.2",
+    "qdrant-client>=0.11.9",
+    "tqdm>=4.66.1",
+    "pyyaml>=6.0.1",
+    "acl-anthology-py>=0.4.3",
+]
+requires-python = ">=3.11"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "ipython>=8.18.1",
+    "neovim>=0.3.1",
+    "black>=23.12.0",
+    "isort>=5.13.2",
+    "pyright>=1.1.341",
+    "null>=0.6.1",
+    "ruff>=0.1.8",
+    "check-jsonschema>=0.27.3",
+    "pytest>=7.4.3",
+]
+
+[tool.black]
+line-length = 88
+
+[tool.ruff]
+src = ["src"]
+line-length = 88
+
+[too.ruff.lint]
+select = [
+  "E",  # pycodestyle errors
+  "W",  # pycodestyle warnings
+  "F",  # pyflakes
+  "I",  # isort
+  "C4",  # flake8-comprehensions
+  "B",  # flake8-bugbear
+  "TCH",  # flake8-type-checking
+  "TID",  # flake8-tidy-imports
+  "SIM", # flake8-simplify
+  "Q", # flake8-quotes
+  "PIE", # flake8-pie
+  "UP",  # pyupgrade
+  "PT",  # flake8-pytest-style
+  "C90",  # mccabe
+]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 18
+
+[tool.ruff.lint.isort]
+split-on-trailing-comma = false
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.lint.flake8-type-checking]
+strict = true
+
+[tool.mypy]
+files = ["src", "tests"]
+strict = true
+pretty = true
+
+[[tool.mypy.overrides]]
+module = [
+    "datasets",
+    "transformers",
+]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpath = ["tests"]
+addopts = "--cov=data_factory --cov-report=term-missing -vv"

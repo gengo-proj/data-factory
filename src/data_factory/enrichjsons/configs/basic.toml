@@ -1,0 +1,10 @@
+enricher_type = "basic"
+
+[summarization]
+model_type = "plm-e2e"
+
+[ner]
+model_type = "spacy"
+
+[vectorizer]
+model_type = "dense-plm"

@@ -1,0 +1,29 @@
+{
+	"title": "RawPaper",
+	"type": "object",
+	"properties": {
+		"paper_uuid": { "type": "string" },
+		"collection_id": { "type": "string" },
+		"collection_acronym": { "type": "string" },
+		"volume_id": { "type": "string" },
+		"booktitle": { "type": "string" },
+		"paper_id": { "type": "integer" },
+		"year": { "type": ["integer", "null"] },
+		"paper_title": { "type": "string" },
+		"authors": { "type": "array", "items": {
+				"type": "object",
+				"items": { "first": { "type": ["string", "null"] }, "last": { "type": ["string", "null"] } }
+			}
+		},
+		"abstract": { "type": ["string", "null"] },
+		"url": { "type": "string" },
+		"bibkey": { "type": ["string", "null"] },
+		"doi": { "type": ["string", "null"] },
+		"fulltext": {
+			"type": ["object", "null"],
+			"patternProperties": {
+				"^.*$": { "type": "array", "items": { "type": "string" } }
+			}
+		}
+	}
+}
