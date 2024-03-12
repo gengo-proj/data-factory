@@ -1,6 +1,20 @@
 # Data Factory for GenGO
 
+## Requirements
+
+- Python 3.11
+- pdm
+- Docker
+
 ## Setup
+
+Setup this repository
+
+```bash
+git clone git@github.com:gengo-proj/data-factory.git
+cd data-factory
+pdm install
+```
 
 Start Grobid Docker container
 
