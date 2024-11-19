@@ -47,7 +47,7 @@ git clone git@github.com:acl-org/acl-anthology.git
 # Run preparation pipeline
 pdm run python -m data_factory.paper2json.main \
   --base-output-dir <path/to/save/raw-paper.json> \
-  --pdf-output-dir <path/to/save/downloaded/paper.pdf>
+  --pdf-output-dir <path/to/save/downloaded/paper.pdf> \
   --anthology-data-dir ./acl-anthology/data/
 ```
 
@@ -68,6 +68,18 @@ pdm run python -m data_factory.enrichjsons.runner \
   --output-base-dir <dir/to/save/enriched-paper.json files> \
   --device -1 (number of gpus to use, if you have, otherwise set -1)
 ```
+
+You can add `--update-enrich-types` when you want to overwrite existing directory on certain features, for instance, the following command will only run the summarizaton and ner enrichment processes but keep the existing information for other things.
+
+```bash
+pdm run python -m data_factory.enrichjsons.runner \
+  --config ./src/data_factory/enrichjsons/configs/basic.toml \
+  --raw-paper-base-dir <dir/of/raw-paper.json files>  \
+  --output-base-dir <dir/to/save/enriched-paper.json files> \
+  --update-enrich-types summarization ner \
+  --device -1 (number of gpus to use, if you have, otherwise set -1)
+```
+
 
 ### Upload to Qdrant
 

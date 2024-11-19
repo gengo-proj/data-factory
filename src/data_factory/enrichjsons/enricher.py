@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from enum import StrEnum
 
 from data_factory.enrichjsons.enriched_paper import EnrichedPaper
 from data_factory.enrichjsons.fos_classifier import FoSClassifier
@@ -8,6 +9,13 @@ from data_factory.enrichjsons.vectorizer import DensePLMVectorizer
 from data_factory.paper2json.raw_paper import RawPaper
 
 
+class EnrichType(StrEnum):
+    summarization = "summarization"
+    ner = "ner"
+    vector = "vector"
+    fos = "fos"
+
+
 @dataclass
 class BasicEnricher:
     summarizer: BaseSummarizer
@@ -15,13 +23,38 @@ class BasicEnricher:
     vectorizer: DensePLMVectorizer
     fos_classifier: FoSClassifier
 
-    def __call__(self, raw_paper: RawPaper) -> EnrichedPaper:
-        summaries: dict[str, str | None] = self.summarizer(raw_paper)
-        named_entities: dict[str, list[str]] = self.nerer(raw_paper)
-        vectors: dict[str, list[float]] = self.vectorizer(raw_paper, summaries)
-        field_of_studies: list[dict[str, str | float]] | None = self.fos_classifier(
-            raw_paper
-        )
+    update_enrich_types: list[EnrichType]
+
+    def __call__(
+        self, raw_paper: RawPaper, existing_enriched_paper: EnrichedPaper | None
+    ) -> EnrichedPaper:
+        if (
+            EnrichType.summarization not in self.update_enrich_types
+        ) and existing_enriched_paper:
+            summaries: dict[str, str | None] = existing_enriched_paper.summaries
+        else:
+            summaries = self.summarizer(raw_paper)
+
+        if (EnrichType.ner not in self.update_enrich_types) and existing_enriched_paper:
+            named_entities: dict[str, list[str]] = (
+                existing_enriched_paper.named_entities
+            )
+        else:
+            named_entities = self.nerer(raw_paper)
+
+        if (
+            EnrichType.vector not in self.update_enrich_types
+        ) and existing_enriched_paper:
+            vectors: dict[str, list[float]] = existing_enriched_paper.vectors
+        else:
+            vectors = self.vectorizer(raw_paper, summaries)
+
+        if (EnrichType.fos not in self.update_enrich_types) and existing_enriched_paper:
+            field_of_studies: list[dict[str, str | float]] | None = (
+                existing_enriched_paper.field_of_studies
+            )
+        else:
+            field_of_studies = self.fos_classifier(raw_paper)
 
         # Run custom module here if needed.
 
@@ -49,6 +82,7 @@ class EnricherFactory:
     nerer: BaseNerer
     vectorizer: DensePLMVectorizer
     fos_classifier: FoSClassifier
+    update_enrich_types: list[EnrichType]
 
     def load(self) -> BasicEnricher:
         if self.enricher_type == "basic":
@@ -58,6 +92,7 @@ class EnricherFactory:
                 nerer=self.nerer,
                 vectorizer=self.vectorizer,
                 fos_classifier=self.fos_classifier,
+                update_enrich_types=self.update_enrich_types,
             )
         else:
             raise ValueError(f"{self.enricher_type} is not supported.")
