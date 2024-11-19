@@ -11,7 +11,7 @@ class DensePLMVectorizer:
     def __init__(self, device: int):
         self.model = SentenceTransformer(
             "Snowflake/snowflake-arctic-embed-m",
-            device="cuda" if device > 0 else "cpu",
+            device="cuda" if device > -1 else "cpu",
         )
         self.device = device
 
