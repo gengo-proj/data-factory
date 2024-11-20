@@ -10,7 +10,7 @@ from data_factory.paper2json.raw_paper import RawPaper
 class DensePLMVectorizer:
     def __init__(self, device: int):
         self.model = SentenceTransformer(
-            "Snowflake/snowflake-arctic-embed-m",
+            "Snowflake/snowflake-arctic-embed-s",
             device="cuda" if device > -1 else "cpu",
         )
         self.device = device
