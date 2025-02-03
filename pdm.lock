@@ -5,10 +5,10 @@
 groups = ["default", "dev"]
 strategy = ["cross_platform", "inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:f1641eb2f2e85f4c6f83a691d1e9e98e373a59a79a5e4e68d5fef80b47509acd"
+content_hash = "sha256:31cd0e6106516de5e1dbd05f3becc16df003b595d97b87a13b9b9af617302b28"
 
 [[metadata.targets]]
-requires_python = ">=3.11"
+requires_python = "==3.11.*"
 
 [[package]]
 name = "acl-anthology-py"
