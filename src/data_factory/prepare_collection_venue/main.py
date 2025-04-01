@@ -97,10 +97,11 @@ def main(yaml_dir: str, xml_dir: str, output_dir: str, enriched_papers_dir: str 
         ]
         if root.find("event") is not None:
             collection["event_id"] = root.find("event").attrib["id"]
-            collection["colocated_volume_ids"] = [
-                _v.text
-                for _v in root.find("event").find("colocated").findall("volume-id")
-            ]
+            if root.find("event").find("colocated") is not None:
+                collection["colocated_volume_ids"] = [
+                    _v.text
+                    for _v in root.find("event").find("colocated").findall("volume-id")
+                ]
         else:
             collection["event_id"] = None
             collection["colocated_volume_ids"] = None

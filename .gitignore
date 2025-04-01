@@ -166,3 +166,4 @@ cython_debug/
 tmp/
 qdrant_storage/
 processed_data/
+data/
