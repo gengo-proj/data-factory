@@ -19,14 +19,14 @@ class RawPaper:
     collection_acronym: str
     volume_id: str
     booktitle: str
-    paper_id: int
+    paper_id: int | str
     year: int | None
 
     paper_title: str
     authors: list[dict[str, str | None]]
     abstract: str | None
     url: str
-    bibkey: str
+    bibkey: str | None
     doi: str | None
     fulltext: dict[str, list[str]] | None
 
@@ -36,7 +36,10 @@ class RawPaper:
         return cls(**sienna.load(fpath))
 
     def get_name(self) -> str:
-        return str(self.url)
+        if ("iclr" in self.collection_id) or ("neurips" in self.collection_id):
+            return str(self.paper_uuid)
+        else:
+            return str(self.url)
 
     def get_fname(self) -> str:
         return f"{self.get_name()}.json"

@@ -7,7 +7,7 @@
 		"collection_acronym": { "type": "string" },
 		"volume_id": { "type": "string" },
 		"booktitle": { "type": "string" },
-		"paper_id": { "type": "integer" },
+		"paper_id": { "type": ["integer", "string"] },
 		"year": { "type": ["integer", "null"] },
 		"paper_title": { "type": "string" },
 		"authors": { "type": "array", "items": {
