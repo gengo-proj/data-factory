@@ -6,6 +6,7 @@ authors = [
     {name = "sobamchan", email = "oh.sore.sore.soutarou@gmail.com"},
 ]
 dependencies = [
+    "accelerate>=1.6.0",
     "acl-anthology-py>=0.5.1",
     "beautifulsoup4>=4.13.3",
     "en-core-web-sm",
